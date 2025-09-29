@@ -1,0 +1,7 @@
+{
+  "name": "Simple React Chat App",
+  "description": "A simple and minimal chat interface built with React, TypeScript, and Tailwind CSS.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
