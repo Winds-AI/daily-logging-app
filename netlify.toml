@@ -13,3 +13,8 @@
 [build.environment]
   NODE_VERSION = "18"
 
+[context.production.environment]
+  VITE_SUPABASE_URL = "https://syhnorhisadxvddkxycg.supabase.co"
+  VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5aG5vcmhpc2FkeHZkZGt4eWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxMzMxNTQsImV4cCI6MjA3NDcwOTE1NH0.DBnQ5VU4trsYoQCIH7SZ-B_kdFIYC8KLOF_dbx2KHnw"
+  VITE_GEMINI_API_KEY = "AIzaSyAwWme5MFo78Qlv5PTTLcgDmiXRc3IYRJE"
+

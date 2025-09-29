@@ -37,6 +37,14 @@ export interface Task {
   id: string;
   text: string;
   completed: boolean;
+  user: User;
+}
+
+export interface ThemeRecord {
+  user: User;
+  theme: {
+    themeColor: ThemeColor;
+  };
 }
 
 export interface Theme {
