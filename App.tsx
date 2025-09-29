@@ -3,7 +3,7 @@ import Header from './components/Header';
 import MessageList from './components/MessageList';
 import MessageInput from './components/MessageInput';
 import Drawer from './components/Drawer';
-import { Message, Task, User, Theme, QueuedMessage, ThemeColor } from './types';
+import { Message, Task, User, Theme, ThemeRecord, QueuedMessage, ThemeColor } from './types';
 import { themes } from './themes';
 import { transcribeAudio, getSuggestionForMessage } from './services/api.ts';
 import { supabase } from './services/supabase.ts';
@@ -86,7 +86,7 @@ const App: React.FC = () => {
           const { new: newTheme } = payload;
           setUserSettings((prevSettings) => ({
             ...prevSettings,
-            [(newTheme as Theme).user]: { themeColor: (newTheme as Theme).theme.themeColor },
+            [(newTheme as ThemeRecord).user]: { themeColor: (newTheme as ThemeRecord).theme.themeColor },
           }));
         }
       )
