@@ -4,11 +4,13 @@ This document provides essential context for the "Daily Log" project, a simple R
 
 ## Project Overview
 
-The "Daily Log" is a web-based chat application designed for two users, "Alex" and "Ben", to maintain a shared daily log. It's built with React, TypeScript, and Vite. The application leverages Supabase for real-time database operations and Netlify Functions for serverless API calls.
+The "Daily Log" is a web-based chat application designed for two users, "Meet" and "Khushi", to maintain a shared daily log. It's built with React, TypeScript, and Vite. The application leverages Supabase for real-time database operations and Netlify Functions for serverless API calls. Access is protected by password authentication.
 
 A key feature is its integration with the Google Gemini API, which provides:
 1.  **Audio Transcription:** Users can record voice notes, which are transcribed into text.
 2.  **AI-Powered Reflections:** After sending a message, the application analyzes the text and generates a "reflection" containing a mood analysis, an acknowledgement, and encouragement.
+
+The application includes password-protected access with cookie-based authentication to ensure privacy for the shared daily log.
 
 The UI is styled using utility-first CSS classes, likely from a framework like Tailwind CSS, and includes a theming system allowing users to customize their interface colors.
 
@@ -24,9 +26,10 @@ The project is configured to run with Node.js and npm.
 2.  **Set Up Environment Variables:**
     Create a `.env.local` file in the project root and add your API keys:
     ```
-    GEMINI_API_KEY=your_gemini_api_key_here
-    SUPABASE_URL=your_supabase_url_here
-    SUPABASE_ANON_KEY=your_supabase_anon_key_here
+    VITE_GEMINI_API_KEY=your_gemini_api_key_here
+    VITE_SUPABASE_URL=your_supabase_url_here
+    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+    VITE_APP_PASSWORD=your_app_password_here
     ```
 
 3.  **Run the Development Server:**
@@ -58,7 +61,7 @@ The project is configured to run with Node.js and npm.
 
 *   **Project Structure:**
     *   `src/`: This project does not use a `src` directory. Main files like `App.tsx` and `index.tsx` are in the root.
-    *   `components/`: Contains reusable React components.
+    *   `components/`: Contains reusable React components including PasswordAuth for authentication.
     *   `services/`: Houses modules for external services (Supabase, API, Gemini).
     *   `types.ts`: Defines shared TypeScript types and interfaces.
     *   `themes.ts`: Contains the theming configuration for the UI.

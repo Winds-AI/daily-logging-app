@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({
   onToggleActiveDrawer,
   theme,
 }) => {
-  const users: User[] = ['Alex', 'Ben'];
+  const users: User[] = ['Meet', 'Khushi'];
 
   return (
     <header className={`${theme.header.headerBg} p-3 flex items-center justify-between border-b border-gray-600`}>

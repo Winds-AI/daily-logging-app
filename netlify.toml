@@ -12,7 +12,7 @@
 
 # Environment variables are configured in Netlify dashboard
 # The following VITE_ prefixed variables are available:
-# VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_GEMINI_API_KEY
+# VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_GEMINI_API_KEY, VITE_APP_PASSWORD
 
 [[redirects]]
   from = "/api/*"

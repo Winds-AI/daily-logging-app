@@ -1,4 +1,4 @@
-export type User = 'Alex' | 'Ben';
+export type User = 'Meet' | 'Khushi';
 
 export const THEME_COLORS = {
     fuchsia: 'Fuchsia',

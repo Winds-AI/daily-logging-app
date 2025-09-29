@@ -3,6 +3,7 @@ import Header from './components/Header';
 import MessageList from './components/MessageList';
 import MessageInput from './components/MessageInput';
 import Drawer from './components/Drawer';
+import PasswordAuth from './components/PasswordAuth';
 import { Message, Task, User, Theme, ThemeRecord, QueuedMessage, ThemeColor } from './types';
 import { themes } from './themes';
 import { transcribeAudio, getSuggestionForMessage } from './services/api.ts';
@@ -26,14 +27,15 @@ function getInitialState<T>(key: string, fallback: T): T {
 }
 
 const App: React.FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [messageQueue, setMessageQueue] = useState<QueuedMessage[]>(() => getInitialState('chat_app_messageQueue', []));
-  const [currentUser, setCurrentUser] = useState<User>(() => getInitialState('chat_app_currentUser', 'Alex'));
-  const [tasks, setTasks] = useState<Record<User, Task[]>>({ Alex: [], Ben: [] });
+  const [currentUser, setCurrentUser] = useState<User>(() => getInitialState('chat_app_currentUser', 'Meet'));
+  const [tasks, setTasks] = useState<Record<User, Task[]>>({ Meet: [], Khushi: [] });
   const [userSettings, setUserSettings] = useState<Record<User, UserSettings>>({
-    Alex: { themeColor: 'fuchsia' },
-    Ben: { themeColor: 'cyan' },
+    Meet: { themeColor: 'fuchsia' },
+    Khushi: { themeColor: 'cyan' },
   });
   const [isLeftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [isRightDrawerOpen, setRightDrawerOpen] = useState(false);
@@ -43,6 +45,19 @@ const App: React.FC = () => {
   const audioChunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
+    // Check if user is already authenticated via cookie
+    const authCookie = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('daily_log_auth='));
+
+    if (authCookie && authCookie.split('=')[1] === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
     const channel = supabase
       .channel('schema-db-changes')
       .on(
@@ -115,8 +130,8 @@ const App: React.FC = () => {
   }, [messageQueue]);
 
   const activeTheme = themes[userSettings[currentUser].themeColor];
-  const alexTheme = themes[userSettings.Alex.themeColor];
-  const benTheme = themes[userSettings.Ben.themeColor];
+  const meetTheme = themes[userSettings.Meet.themeColor];
+  const khushiTheme = themes[userSettings.Khushi.themeColor];
 
   const handleAddToQueue = () => {
     if (newMessage.trim() === '') return;
@@ -271,7 +286,7 @@ const App: React.FC = () => {
   };
 
   const handleToggleActiveDrawer = () => {
-    if (currentUser === 'Alex') {
+    if (currentUser === 'Meet') {
       setLeftDrawerOpen(true);
     } else {
       setRightDrawerOpen(true);
@@ -301,12 +316,16 @@ const App: React.FC = () => {
     await supabase.from('tasks').delete().eq('id', taskId);
   };
 
+  if (!isAuthenticated) {
+    return <PasswordAuth onAuthenticated={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <div className={`h-screen w-screen flex flex-col ${activeTheme.appBg} text-gray-100 font-sans`}>
       <div className="relative flex h-full w-full justify-center">
         <Drawer
-          user="Alex"
-          tasks={tasks.Alex}
+          user="Meet"
+          tasks={tasks.Meet}
           isOpen={isLeftDrawerOpen}
           onClose={() => setLeftDrawerOpen(false)}
           onAddTask={handleAddTask}
@@ -314,9 +333,9 @@ const App: React.FC = () => {
           onUpdateTask={handleUpdateTask}
           onDeleteTask={handleDeleteTask}
           position="left"
-          theme={alexTheme.drawer}
-          selectedThemeColor={userSettings.Alex.themeColor}
-          onThemeChange={(color) => handleThemeChange('Alex', color)}
+          theme={meetTheme.drawer}
+          selectedThemeColor={userSettings.Meet.themeColor}
+          onThemeChange={(color) => handleThemeChange('Meet', color)}
         />
 
         <main className={`flex flex-col h-full w-full max-w-2xl ${activeTheme.chatWindowBg} shadow-lg`}>
@@ -342,8 +361,8 @@ const App: React.FC = () => {
         </main>
 
         <Drawer
-          user="Ben"
-          tasks={tasks.Ben}
+          user="Khushi"
+          tasks={tasks.Khushi}
           isOpen={isRightDrawerOpen}
           onClose={() => setRightDrawerOpen(false)}
           onAddTask={handleAddTask}
@@ -351,9 +370,9 @@ const App: React.FC = () => {
           onUpdateTask={handleUpdateTask}
           onDeleteTask={handleDeleteTask}
           position="right"
-          theme={benTheme.drawer}
-          selectedThemeColor={userSettings.Ben.themeColor}
-          onThemeChange={(color) => handleThemeChange('Ben', color)}
+          theme={khushiTheme.drawer}
+          selectedThemeColor={userSettings.Khushi.themeColor}
+          onThemeChange={(color) => handleThemeChange('Khushi', color)}
         />
       </div>
     </div>
