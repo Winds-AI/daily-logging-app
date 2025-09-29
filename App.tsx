@@ -31,7 +31,10 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [messageQueue, setMessageQueue] = useState<QueuedMessage[]>(() => getInitialState('chat_app_messageQueue', []));
-  const [currentUser, setCurrentUser] = useState<User>(() => getInitialState('chat_app_currentUser', 'Meet'));
+  const [currentUser, setCurrentUser] = useState<User>(() => {
+    const saved = getInitialState('chat_app_currentUser', 'Meet');
+    return (saved === 'Meet' || saved === 'Khushi') ? saved : 'Meet';
+  });
   const [tasks, setTasks] = useState<Record<User, Task[]>>({ Meet: [], Khushi: [] });
   const [userSettings, setUserSettings] = useState<Record<User, UserSettings>>({
     Meet: { themeColor: 'fuchsia' },
@@ -129,9 +132,9 @@ const App: React.FC = () => {
     }
   }, [messageQueue]);
 
-  const activeTheme = themes[userSettings[currentUser].themeColor];
-  const meetTheme = themes[userSettings.Meet.themeColor];
-  const khushiTheme = themes[userSettings.Khushi.themeColor];
+  const activeTheme = themes[userSettings[currentUser]?.themeColor || 'fuchsia'];
+  const meetTheme = themes[userSettings.Meet?.themeColor || 'fuchsia'];
+  const khushiTheme = themes[userSettings.Khushi?.themeColor || 'cyan'];
 
   const handleAddToQueue = () => {
     if (newMessage.trim() === '') return;
@@ -334,7 +337,7 @@ const App: React.FC = () => {
           onDeleteTask={handleDeleteTask}
           position="left"
           theme={meetTheme.drawer}
-          selectedThemeColor={userSettings.Meet.themeColor}
+          selectedThemeColor={userSettings.Meet?.themeColor || 'fuchsia'}
           onThemeChange={(color) => handleThemeChange('Meet', color)}
         />
 
@@ -371,7 +374,7 @@ const App: React.FC = () => {
           onDeleteTask={handleDeleteTask}
           position="right"
           theme={khushiTheme.drawer}
-          selectedThemeColor={userSettings.Khushi.themeColor}
+          selectedThemeColor={userSettings.Khushi?.themeColor || 'cyan'}
           onThemeChange={(color) => handleThemeChange('Khushi', color)}
         />
       </div>

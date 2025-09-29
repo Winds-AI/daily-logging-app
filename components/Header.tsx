@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className={`${theme.header.headerBg} p-3 flex items-center justify-between border-b border-gray-600`}>
       <div className="w-10"> {/* Spacer to balance the right button */}
-         <h1 className={`font-bold text-xl ${theme.header.titleText}`}>Daily Log</h1>
+         <h1 className={`font-bold text-xl ${theme.header.titleText} whitespace-nowrap`}>Daily Log</h1>
       </div>
       
       <div className={`flex p-1 rounded-full ${theme.switcher.containerBg}`}>
