@@ -24,7 +24,7 @@ const Message: React.FC<MessageProps> = ({ message, currentUser, theme }) => {
 
   const messageContainerClasses = `flex mb-1 ${isSentByCurrentUser ? 'justify-end' : 'justify-start'}`;
   
-  const messageBubbleClasses = `flex flex-col rounded-xl py-2 px-3.5 max-w-[80%] shadow-md relative group ${
+  const messageBubbleClasses = `flex flex-col rounded-xl py-2 px-3.5 max-w-[85%] sm:max-w-[80%] shadow-md relative group ${
     isSentByCurrentUser
       ? `${theme.message.sentBg} ${theme.message.sentText} rounded-br-none`
       : `${theme.message.receivedBg} ${theme.message.receivedText} rounded-bl-none`
@@ -95,9 +95,9 @@ const Message: React.FC<MessageProps> = ({ message, currentUser, theme }) => {
     <div className="flex flex-col w-full mb-3" style={{alignItems: isSentByCurrentUser ? 'flex-end' : 'flex-start'}}>
       <div className={messageContainerClasses} style={{width: 'fit-content'}}>
         <div className={messageBubbleClasses}>
-          <p className="text-sm whitespace-pre-wrap break-words pb-4">{message.text}</p>
-          <div className="absolute bottom-1.5 right-3.5 flex items-center self-end space-x-1">
-            <span className={timestampClasses}>{message.timestamp}</span>
+          <p className="text-sm whitespace-pre-wrap break-words pb-3 sm:pb-4">{message.text}</p>
+          <div className="flex items-center justify-end space-x-1 mt-1 sm:absolute sm:bottom-1.5 sm:right-3.5">
+            <span className={`${timestampClasses} text-xs`}>{message.timestamp}</span>
             {isSentByCurrentUser && <DoubleCheckIcon className={`w-4 h-4 ${timestampClasses}`} />}
           </div>
           {(message.suggestion || message.suggestionLoading) && (
@@ -111,7 +111,7 @@ const Message: React.FC<MessageProps> = ({ message, currentUser, theme }) => {
           )}
         </div>
       </div>
-      {showSuggestion && <div className="w-[80%]"><AiReflectionCard /></div>}
+      {showSuggestion && <div className="w-[85%] sm:w-[80%]"><AiReflectionCard /></div>}
     </div>
   );
 };

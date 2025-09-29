@@ -90,7 +90,7 @@ const Drawer: React.FC<DrawerProps> = ({
   return (
     <>
       <div
-        className={`fixed top-0 ${position === 'left' ? 'left-0' : 'right-0'} z-30 h-full w-full max-w-sm ${theme.drawerBg} ${theme.drawerText} shadow-lg transition-transform duration-300 ease-in-out ${transformClass} flex flex-col`}
+        className={`fixed top-0 ${position === 'left' ? 'left-0' : 'right-0'} z-30 h-full w-full max-w-sm sm:max-w-xs ${theme.drawerBg} ${theme.drawerText} shadow-lg transition-transform duration-300 ease-in-out ${transformClass} flex flex-col`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={`drawer-title-${user}`}
@@ -119,21 +119,21 @@ const Drawer: React.FC<DrawerProps> = ({
         <div className="flex-grow p-4 overflow-y-auto">
           <ul className="space-y-2">
             {tasks.map((task) => (
-              <li key={task.id} className="flex items-center p-2 rounded-md hover:bg-white/5 min-h-[44px]">
+              <li key={task.id} className="flex items-center p-3 sm:p-2 rounded-md hover:bg-white/5 min-h-[48px] sm:min-h-[44px]">
                 {editingTaskId === task.id ? (
                   <form onSubmit={handleUpdateTask} className="flex items-center w-full space-x-2">
                     <input
                       type="text"
                       value={editingTaskText}
                       onChange={(e) => setEditingTaskText(e.target.value)}
-                      className={`w-full ${theme.inputBg} border border-gray-500 rounded-md py-1 px-2 focus:outline-none focus:ring-2 ${theme.accentColor} text-gray-100 placeholder-gray-400`}
+                      className={`w-full ${theme.inputBg} border border-gray-500 rounded-md py-2 sm:py-1 px-3 sm:px-2 focus:outline-none focus:ring-2 ${theme.accentColor} text-gray-100 placeholder-gray-400 text-base`}
                       autoFocus
                       aria-label="Edit task input"
                     />
-                    <button type="submit" className="text-gray-400 hover:text-green-400" aria-label="Save task">
-                      <CheckIcon className="w-6 h-6" />
+                    <button type="submit" className="text-gray-400 hover:text-green-400 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Save task">
+                      <CheckIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </button>
-                     <button type="button" onClick={() => setEditingTaskId(null)} className="text-gray-400 hover:text-gray-100" aria-label="Cancel edit">
+                     <button type="button" onClick={() => setEditingTaskId(null)} className="text-gray-400 hover:text-gray-100 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Cancel edit">
                       <CloseIcon className="w-5 h-5" />
                     </button>
                   </form>
@@ -143,15 +143,15 @@ const Drawer: React.FC<DrawerProps> = ({
                       type="checkbox"
                       checked={task.completed}
                       onChange={() => onToggleTask(user, task.id)}
-                      className={`w-5 h-5 rounded border-gray-500 bg-transparent ${theme.accentColor} focus:ring-2 ${theme.accentColor}`}
+                      className={`w-5 h-5 rounded border-gray-500 bg-transparent ${theme.accentColor} focus:ring-2 ${theme.accentColor} min-w-[20px] min-h-[20px]`}
                     />
-                    <span className={`ml-3 flex-grow ${task.completed ? 'line-through text-gray-400' : ''}`}>
+                    <span className={`ml-3 flex-grow ${task.completed ? 'line-through text-gray-400' : ''} text-sm sm:text-base`}>
                       {task.text}
                     </span>
-                    <button onClick={() => handleEditClick(task)} className="ml-2 text-gray-500 hover:text-yellow-400" aria-label={`Edit task: ${task.text}`}>
+                    <button onClick={() => handleEditClick(task)} className="ml-2 text-gray-500 hover:text-yellow-400 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label={`Edit task: ${task.text}`}>
                       <EditIcon className="w-5 h-5" />
                     </button>
-                    <button onClick={() => onDeleteTask(user, task.id)} className="ml-2 text-gray-500 hover:text-red-500" aria-label={`Delete task: ${task.text}`}>
+                    <button onClick={() => onDeleteTask(user, task.id)} className="ml-2 text-gray-500 hover:text-red-500 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label={`Delete task: ${task.text}`}>
                       <TrashIcon className="w-5 h-5" />
                     </button>
                   </>
@@ -161,17 +161,17 @@ const Drawer: React.FC<DrawerProps> = ({
           </ul>
         </div>
 
-        <form onSubmit={handleAddTask} className={`p-4 border-t ${theme.drawerHeaderBg} flex items-center space-x-2`}>
+        <form onSubmit={handleAddTask} className={`p-3 sm:p-4 border-t ${theme.drawerHeaderBg} flex items-center space-x-2`}>
           <input
             type="text"
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
             placeholder="Add new task..."
-            className={`w-full ${theme.inputBg} border border-gray-500 rounded-md py-2 px-3 focus:outline-none focus:ring-2 ${theme.accentColor} text-gray-100 placeholder-gray-400`}
+            className={`w-full ${theme.inputBg} border border-gray-500 rounded-md py-2.5 sm:py-2 px-3 focus:outline-none focus:ring-2 ${theme.accentColor} text-gray-100 placeholder-gray-400 text-base`}
             aria-label="New task input"
           />
-          <button type="submit" className={`${theme.buttonColor} text-white rounded-md p-2 flex items-center justify-center hover:opacity-90 transition-opacity`} aria-label="Add task">
-            <PlusIcon className="w-6 h-6" />
+          <button type="submit" className={`${theme.buttonColor} text-white rounded-md p-2.5 sm:p-2 flex items-center justify-center hover:opacity-90 transition-opacity min-w-[44px] min-h-[44px]`} aria-label="Add task">
+            <PlusIcon className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </form>
       </div>

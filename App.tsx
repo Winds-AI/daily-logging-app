@@ -341,7 +341,7 @@ const App: React.FC = () => {
           onThemeChange={(color) => handleThemeChange('Meet', color)}
         />
 
-        <main className={`flex flex-col h-full w-full max-w-2xl ${activeTheme.chatWindowBg} shadow-lg`}>
+        <main className={`flex flex-col h-full w-full max-w-2xl sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl ${activeTheme.chatWindowBg} shadow-lg`}>
           <Header
             currentUser={currentUser}
             onUserChange={handleUserChange}

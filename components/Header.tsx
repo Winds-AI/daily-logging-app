@@ -18,17 +18,17 @@ const Header: React.FC<HeaderProps> = ({
   const users: User[] = ['Meet', 'Khushi'];
 
   return (
-    <header className={`${theme.header.headerBg} p-3 flex items-center justify-between border-b border-gray-600`}>
-      <div className="w-10"> {/* Spacer to balance the right button */}
+    <header className={`${theme.header.headerBg} p-2 sm:p-3 flex items-center justify-between border-b border-gray-600 min-h-[48px] sm:min-h-[52px]`}>
+      <div className="w-8 sm:w-10"> {/* Spacer to balance the right button */}
          <h1 className={`font-bold text-xl ${theme.header.titleText} whitespace-nowrap`}>Daily Log</h1>
       </div>
       
-      <div className={`flex p-1 rounded-full ${theme.switcher.containerBg}`}>
+      <div className={`flex p-0.5 sm:p-1 rounded-full ${theme.switcher.containerBg}`}>
         {users.map(user => (
           <button
             key={user}
             onClick={() => onUserChange(user)}
-            className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 ${theme.messageInput.inputRing} ring-offset-2 ring-offset-gray-800 ${
+            className={`px-2 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 ${theme.messageInput.inputRing} ring-offset-2 ring-offset-gray-800 min-w-[44px] sm:min-w-[48px] ${
               currentUser === user
                 ? `${theme.switcher.activeBg} ${theme.switcher.activeText}`
                 : `${theme.switcher.inactiveText} ${theme.switcher.inactiveHoverBg}`
@@ -39,13 +39,15 @@ const Header: React.FC<HeaderProps> = ({
         ))}
       </div>
 
-      <button 
-        onClick={onToggleActiveDrawer} 
-        className={`p-2 rounded-full hover:bg-white/10 ${theme.header.headerText}`} 
-        aria-label={`Open ${currentUser}'s tasks`}
-      >
-        <MenuIcon className="w-6 h-6" />
-      </button>
+      <div className="w-6 sm:w-8"> {/* Reduced spacer to shift user switcher left */}
+        <button
+          onClick={onToggleActiveDrawer}
+          className={`p-2 rounded-full hover:bg-white/10 ${theme.header.headerText} min-w-[44px] min-h-[44px] flex items-center justify-center`}
+          aria-label={`Open ${currentUser}'s tasks`}
+        >
+          <MenuIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+      </div>
     </header>
   );
 };

@@ -37,7 +37,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
   const isDisabled = isRecording || isTranscribing;
 
   return (
-    <div className={`${theme.messageInput.inputContainerBg} p-4 border-t border-gray-600`}>
+    <div className={`${theme.messageInput.inputContainerBg} p-3 sm:p-4 border-t border-gray-600`}>
       {/* Queue Area */}
       {queue.length > 0 && (
         <div className="mb-3 p-3 bg-black/20 rounded-lg">
@@ -45,11 +45,12 @@ const MessageInput: React.FC<MessageInputProps> = ({
             <h3 className="text-sm font-bold text-gray-300">Daily Log Queue ({queue.length})</h3>
             <button
               onClick={onSendQueue}
-              className={`flex items-center space-x-2 text-sm font-semibold text-white rounded-full py-2 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.messageInput.inputRing} ${theme.messageInput.sendButtonBg} ${theme.messageInput.sendButtonHoverBg}`}
+              className={`flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm font-semibold text-white rounded-full py-1.5 sm:py-2 px-3 sm:px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.messageInput.inputRing} ${theme.messageInput.sendButtonBg} ${theme.messageInput.sendButtonHoverBg}`}
               aria-label="Send all queued messages"
             >
-              <SendIcon className="w-4 h-4" />
-              <span>Send Daily Log</span>
+              <SendIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden xs:inline sm:inline">Send Daily Log</span>
+              <span className="xs:hidden sm:hidden">Send</span>
             </button>
           </div>
           <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
@@ -73,12 +74,12 @@ const MessageInput: React.FC<MessageInputProps> = ({
       )}
 
       {/* Input Form */}
-      <form onSubmit={handleSubmit} className="flex items-center space-x-3">
+      <form onSubmit={handleSubmit} className="flex items-center space-x-2 sm:space-x-3">
         <div className="relative w-full">
             <input
               type="text"
               placeholder={isRecording ? 'Recording...' : isTranscribing ? 'Transcribing audio...' : 'Add a thought to your daily log...'}
-              className={`w-full ${theme.messageInput.inputBg} border border-gray-500 rounded-full py-2 px-4 focus:outline-none focus:ring-2 ${theme.messageInput.inputRing} ${theme.messageInput.inputText} ${theme.messageInput.inputPlaceholder} ${isTranscribing ? 'pr-10' : ''}`}
+              className={`w-full ${theme.messageInput.inputBg} border border-gray-500 rounded-full py-2.5 sm:py-2 px-4 focus:outline-none focus:ring-2 ${theme.messageInput.inputRing} ${theme.messageInput.inputText} ${theme.messageInput.inputPlaceholder} ${isTranscribing ? 'pr-10' : ''} text-base`}
               value={value}
               onChange={onChange}
               aria-label="Message input"
@@ -93,23 +94,23 @@ const MessageInput: React.FC<MessageInputProps> = ({
         <button
           type="button"
           onClick={onVoiceClick}
-          className={`text-white rounded-full p-3 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.messageInput.inputRing} ${
-            isRecording 
-              ? 'bg-red-600 hover:bg-red-700 animate-pulse' 
+          className={`text-white rounded-full p-2.5 sm:p-3 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.messageInput.inputRing} min-w-[44px] min-h-[44px] ${
+            isRecording
+              ? 'bg-red-600 hover:bg-red-700 animate-pulse'
               : `${theme.messageInput.sendButtonBg} ${theme.messageInput.sendButtonHoverBg}`
           } disabled:opacity-50 disabled:cursor-not-allowed`}
           aria-label={isRecording ? 'Stop recording' : 'Start recording'}
           disabled={isTranscribing}
         >
-          <MicrophoneIcon className="w-5 h-5" />
+          <MicrophoneIcon className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
         <button
           type="submit"
-          className={`${theme.messageInput.sendButtonBg} text-white rounded-full p-3 flex items-center justify-center ${theme.messageInput.sendButtonHoverBg} transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.messageInput.inputRing} disabled:opacity-50 disabled:cursor-not-allowed`}
+          className={`${theme.messageInput.sendButtonBg} text-white rounded-full p-2.5 sm:p-3 flex items-center justify-center ${theme.messageInput.sendButtonHoverBg} transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.messageInput.inputRing} disabled:opacity-50 disabled:cursor-not-allowed min-w-[44px] min-h-[44px]`}
           aria-label="Add to queue"
           disabled={!value.trim() || isDisabled}
         >
-          <PlusIcon className="w-5 h-5" />
+          <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </form>
     </div>

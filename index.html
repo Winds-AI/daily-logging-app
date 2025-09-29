@@ -4,9 +4,33 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React Chat UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Daily Log</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Prevent text size adjustment on mobile */
+      html {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+
+      /* Improve touch targets and prevent zoom on input focus */
+      input, button, textarea, select {
+        font-size: 16px;
+      }
+
+      /* Prevent horizontal scroll */
+      body {
+        overflow-x: hidden;
+      }
+
+      /* Improve tap highlight color */
+      * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      }
+    </style>
   <script type="importmap">
 {
   "imports": {
