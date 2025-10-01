@@ -72,3 +72,45 @@ export async function transcribeAudio(audioBlob: Blob) {
     const result = await audioModel.generateContent([audioPart, "Transcribe this audio."]);
     return result.response.text();
 }
+
+export async function analyzeForSelfImprovement(message: string): Promise<{ improvement_text: string; motivational_subtitle: string } | null> {
+  const chatSession = textModel.startChat({
+    generationConfig: { ...generationConfig, responseMimeType: "application/json" },
+    safetySettings,
+    history: [
+      {
+        role: "user",
+        parts: [
+          { text: `You are an assistant that analyzes messages to find potential self-improvement goals.
+- If a message contains a clear statement about wanting to improve on something (e.g., "I want to be more patient," "I should wake up earlier"), extract it.
+- If no clear goal is stated, respond with an empty JSON object ({}).
+- If a goal is found, provide a JSON response with two keys:
+  1. "improvement_text": The extracted self-improvement goal, phrased as a concise action item.
+  2. "motivational_subtitle": A short, encouraging subtitle (max 10 words).
+
+Example:
+User message: "I was so unproductive today, I really need to get better at managing my time."
+AI response:
+{
+  "improvement_text": "Get better at managing my time",
+  "motivational_subtitle": "Every step forward is a victory."
+}`},
+        ],
+      },
+    ],
+  });
+
+  const result = await chatSession.sendMessage(message);
+  const responseText = result.response.text();
+
+  try {
+    const parsedJson = JSON.parse(responseText);
+    if (parsedJson.improvement_text && parsedJson.motivational_subtitle) {
+      return parsedJson;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error parsing AI response for self-improvement:", error);
+    return null;
+  }
+}

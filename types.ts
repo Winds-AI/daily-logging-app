@@ -40,6 +40,15 @@ export interface Task {
   user: User;
 }
 
+export interface SelfImprovement {
+  id: string;
+  user_text: User;
+  created_at: string;
+  improvement_text: string;
+  motivational_subtitle: string;
+  completed: boolean;
+}
+
 export interface ThemeRecord {
   user: User;
   theme: {
