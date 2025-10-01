@@ -34,10 +34,19 @@ export interface QueuedMessage {
 }
 
 export interface Task {
-  id: string;
+  id:string;
   text: string;
   completed: boolean;
-  user: User;
+  user_text: User;
+}
+
+export interface SelfImprovement {
+  id: string;
+  user_text: User;
+  created_at: string;
+  improvement_text: string;
+  motivational_subtitle: string;
+  completed: boolean;
 }
 
 export interface ThemeRecord {
