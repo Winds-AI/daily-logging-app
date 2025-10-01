@@ -78,8 +78,8 @@ const App: React.FC = () => {
         if (initialTasks.data) {
             const userTasks = { Meet: [], Khushi: [] };
             initialTasks.data.forEach(task => {
-                if (task.user === 'Meet' || task.user === 'Khushi') {
-                    userTasks[task.user].push(task);
+                if (task.user_text === 'Meet' || task.user_text === 'Khushi') {
+                    userTasks[task.user_text].push(task);
                 }
             });
             setTasks(userTasks);
@@ -126,7 +126,7 @@ const App: React.FC = () => {
         { event: '*', schema: 'daily_log', table: 'tasks' },
         (payload) => {
           const { new: newTask, old: oldTask, eventType } = payload;
-          const user = (newTask?.user || oldTask?.user) as User;
+          const user = (newTask?.user_text || oldTask?.user_text) as User;
           if (!user) return;
 
           setTasks(prev => {
@@ -337,7 +337,7 @@ const App: React.FC = () => {
 
   // Task Handlers
   const handleAddTask = async (user: User, taskText: string) => {
-    await db.supabase.from('tasks').insert({ text: taskText, completed: false, user });
+    await db.supabase.from('tasks').insert({ text: taskText, completed: false, user_text: user });
   };
   const handleToggleTask = async (user: User, taskId: string) => {
     const task = tasks[user].find(t => t.id === taskId);

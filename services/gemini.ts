@@ -104,13 +104,22 @@ AI response:
   const responseText = result.response.text();
 
   try {
+    // Handle cases where the AI returns an empty or non-JSON response
+    if (!responseText.trim() || responseText.trim() === '{}') {
+        return null;
+    }
+
     const parsedJson = JSON.parse(responseText);
-    if (parsedJson.improvement_text && parsedJson.motivational_subtitle) {
+
+    // Validate that the fields exist and are non-empty strings
+    if (parsedJson.improvement_text?.trim() && parsedJson.motivational_subtitle?.trim()) {
       return parsedJson;
     }
-    return null;
+
+    return null; // Return null if fields are missing or empty
   } catch (error) {
-    console.error("Error parsing AI response for self-improvement:", error);
-    return null;
+    console.error("Error parsing AI response for self-improvement:", responseText, error);
+    // Re-throw the error to be handled by the caller
+    throw new Error("Failed to parse AI response for self-improvement.");
   }
 }

@@ -21,6 +21,14 @@ export const handler: Handler = async (event) => {
 
     const analysisResult = await analyzeForSelfImprovement(message);
 
+    if (!analysisResult) {
+      return {
+        statusCode: 200,
+        // Return a specific structure when no goal is found
+        body: JSON.stringify({ analysis: null, message: 'No improvement goal detected' }),
+      };
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({ analysis: analysisResult }),

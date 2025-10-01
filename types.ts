@@ -34,10 +34,10 @@ export interface QueuedMessage {
 }
 
 export interface Task {
-  id: string;
+  id:string;
   text: string;
   completed: boolean;
-  user: User;
+  user_text: User;
 }
 
 export interface SelfImprovement {

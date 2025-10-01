@@ -40,7 +40,7 @@ export async function analyzeForSelfImprovement(message: string): Promise<{ impr
     return data.analysis;
   } catch (error) {
     console.error('Error calling analyze-for-self-improvement function:', error);
-    return null;
+    throw error;
   }
 }
 
